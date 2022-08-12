@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.ResponseData;
 import com.example.demo.models.entities.Product;
+import com.example.demo.models.entities.Supplier;
 import com.example.demo.services.ProductService;
 
 @RestController
@@ -78,5 +79,10 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void removeOne(@PathVariable Long id){
         productService.deleteProduct(id);
+    }
+
+    @PostMapping("/{id}")
+    public void addSupplier(@RequestBody Supplier supplier, @PathVariable("id") Long productId){
+        productService.addSupplier(supplier, productId);
     }
 }

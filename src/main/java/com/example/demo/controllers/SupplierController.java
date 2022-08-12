@@ -32,6 +32,7 @@ public class SupplierController {
     @Autowired
     private SupplierService supplierService;
 
+    @Autowired
     private ModelMapper modelMapper;
 
     @PostMapping

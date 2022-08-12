@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -19,6 +20,9 @@ public class ProductService {
     
     @Autowired
     private ProductRepository productRepo;
+
+    @Autowired
+    private SupplierService supplierService;
 
     public Product create(Product product){
         return productRepo.save(product);
@@ -53,5 +57,25 @@ public class ProductService {
         tempSetSupplierFromProd.add(supplier);
         product.setSuppliers(tempSetSupplierFromProd);
         create(product);
+    }
+
+    public Product findProductByName(String prodName){
+        return productRepo.findProductByName(prodName);
+    }
+
+    public List<Product> findProductByNameLike(String prodName){
+        return productRepo.findProductByNameLike("%"+prodName+"%");
+    }
+
+    public List<Product> findProductByCategory(Long categoryId){
+        return productRepo.findProductByCategory(categoryId);
+    }
+
+    public List<Product> findProductBySupplier(Long supplierId){
+        Supplier supplier = supplierService.findById(supplierId);
+        if (supplier == null) {
+            return new ArrayList<Product>();
+        }
+        return productRepo.findProductBySupplier(supplier);
     }
 }
